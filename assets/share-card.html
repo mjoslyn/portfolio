@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>share card</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Mono:wght@300;400;500&family=Spectral:ital,wght@0,300;0,400&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --void: #08070d;
+    --ink: #ece8f2;
+    --ink-dim: #9b95ad;
+    --ink-faint: #5d5870;
+    --line: rgba(236, 232, 242, 0.12);
+    --magenta: #ff3d9a;
+    --cyan: #34e0e8;
+    --amber: #ffb648;
+    --display: "Cormorant Garamond", serif;
+    --body: "Spectral", Georgia, serif;
+    --mono: "DM Mono", ui-monospace, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+  body {
+    background: var(--void);
+    color: var(--ink);
+    font-family: var(--body);
+    -webkit-font-smoothing: antialiased;
+    position: relative;
+  }
+
+  /* psychedelic CSV->PNG backdrop, blended toward the right */
+  .bg {
+    position: absolute; inset: 0;
+    background: url("img/share-bg.png") center / cover no-repeat;
+    opacity: 0.68;
+    mix-blend-mode: screen;
+    filter: saturate(1.15) blur(1px);
+    -webkit-mask-image: radial-gradient(120% 120% at 118% 12%, #000 0%, rgba(0,0,0,0.35) 45%, transparent 72%);
+            mask-image: radial-gradient(120% 120% at 118% 12%, #000 0%, rgba(0,0,0,0.35) 45%, transparent 72%);
+  }
+  /* atmospheric radial washes, same as the site */
+  .wash {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(90% 120% at 6% -20%, rgba(255, 61, 154, 0.16), transparent 55%),
+      radial-gradient(80% 120% at 104% 8%, rgba(52, 224, 232, 0.14), transparent 52%),
+      radial-gradient(80% 100% at 60% 130%, rgba(255, 182, 72, 0.12), transparent 55%);
+  }
+  /* vignette to seat the text */
+  .vig {
+    position: absolute; inset: 0;
+    background: linear-gradient(95deg, rgba(8,7,13,0.92) 36%, rgba(8,7,13,0.32) 68%, rgba(8,7,13,0.62));
+  }
+
+  .frame {
+    position: absolute; inset: 0;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 64px 72px;
+  }
+
+  .mark { display: flex; align-items: center; gap: 14px; }
+  .mark__glyph { font-size: 26px; color: var(--cyan); line-height: 1; }
+  .mark__txt {
+    font-family: var(--mono);
+    font-size: 16px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+
+  .mid { margin-top: -8px; }
+  .kicker {
+    font-family: var(--mono);
+    font-size: 15px;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    margin-bottom: 22px;
+  }
+  .name {
+    font-family: var(--display);
+    font-weight: 300;
+    font-size: 150px;
+    line-height: 0.82;
+    letter-spacing: -0.02em;
+  }
+  .name .last {
+    font-style: italic;
+    background: linear-gradient(102deg, var(--magenta), var(--amber), var(--cyan));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .lede {
+    margin-top: 30px;
+    font-size: 25px;
+    line-height: 1.45;
+    color: var(--ink);
+    max-width: 30ch;
+    font-weight: 300;
+  }
+
+  .foot {
+    display: flex;
+    gap: 30px;
+    align-items: baseline;
+    font-family: var(--mono);
+    font-size: 15px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .foot .dot { color: var(--cyan); }
+  .foot .here { color: var(--ink-dim); }
+
+  /* print-fuzz grain, same source as the site */
+  .grain {
+    position: absolute; inset: -50%;
+    z-index: 4;
+    pointer-events: none;
+    opacity: 0.055;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+</style>
+</head>
+<body>
+  <div class="bg"></div>
+  <div class="wash"></div>
+  <div class="vig"></div>
+  <div class="grain"></div>
+
+  <div class="frame">
+    <div class="mark">
+      <span class="mark__glyph">◑</span>
+      <span class="mark__txt">robot of the future</span>
+    </div>
+
+    <div class="mid">
+      <p class="kicker">WordPress developer · 10+ years</p>
+      <h1 class="name"><span class="first">Michael</span> <span class="last">Joslyn</span></h1>
+      <p class="lede">Freelance WordPress &amp; WooCommerce development, support, and full rebuilds.</p>
+    </div>
+
+    <div class="foot">
+      <span>robotofthefuture.com</span>
+      <span class="dot">·</span>
+      <span class="here">Cherry Creek, NY</span>
+    </div>
+  </div>
+</body>
+</html>
