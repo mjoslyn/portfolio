@@ -227,6 +227,18 @@ section { position: relative; z-index: 1; padding-inline: clamp(1.2rem, 6vw, 5re
   transition: color 0.2s ease;
 }
 .proj__domain a:hover { color: var(--amber); }
+.proj__note {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--amber);
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  padding: 0.2rem 0.7rem;
+  margin: -0.4rem 0 1.1rem;
+}
 .proj__desc { font-size: 1.05rem; color: var(--ink); max-width: 46ch; }
 .proj__desc em { font-style: italic; color: var(--amber); }
 .proj__tags { list-style: none; display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.4rem; }
