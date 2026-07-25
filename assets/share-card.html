@@ -5,152 +5,181 @@
 <title>share card</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Mono:wght@300;400;500&family=Spectral:ital,wght@0,300;0,400&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Martian+Mono:wght@300..700&display=swap" rel="stylesheet" />
 <style>
-  :root {
-    --void: #08070d;
-    --ink: #ece8f2;
-    --ink-dim: #9b95ad;
-    --ink-faint: #5d5870;
-    --line: rgba(236, 232, 242, 0.12);
-    --magenta: #ff3d9a;
-    --cyan: #34e0e8;
-    --amber: #ffb648;
-    --display: "Cormorant Garamond", serif;
-    --body: "Spectral", Georgia, serif;
-    --mono: "DM Mono", ui-monospace, monospace;
+  :root{
+    --zinc:#d1d3cc;
+    --panel:#e3e4df;
+    --panel-2:#ecedea;
+    --ink:#15171a;
+    --ink-2:#53575b;
+    --rule:#a8aca3;
+    --rule-soft:#c0c3ba;
+    --yellow:#e8b60f;
+    --oxide:#b13617;
+    --blue:#2b4c7e;
+    --display:"Archivo",system-ui,sans-serif;
+    --mono:"Martian Mono",ui-monospace,monospace;
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { width: 1200px; height: 630px; overflow: hidden; }
-  body {
-    background: var(--void);
-    color: var(--ink);
-    font-family: var(--body);
-    -webkit-font-smoothing: antialiased;
-    position: relative;
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:1200px;height:630px;overflow:hidden}
+  body{
+    background:var(--zinc);
+    color:var(--ink);
+    font-family:var(--display);
+    font-variation-settings:"wdth" 100,"wght" 400;
+    -webkit-font-smoothing:antialiased;
+    position:relative;
   }
-
-  /* psychedelic CSV->PNG backdrop, blended toward the right */
-  .bg {
-    position: absolute; inset: 0;
-    background: url("img/share-bg.png") center / cover no-repeat;
-    opacity: 0.68;
-    mix-blend-mode: screen;
-    filter: saturate(1.15) blur(1px);
-    -webkit-mask-image: radial-gradient(120% 120% at 118% 12%, #000 0%, rgba(0,0,0,0.35) 45%, transparent 72%);
-            mask-image: radial-gradient(120% 120% at 118% 12%, #000 0%, rgba(0,0,0,0.35) 45%, transparent 72%);
-  }
-  /* atmospheric radial washes, same as the site */
-  .wash {
-    position: absolute; inset: 0;
-    background:
-      radial-gradient(90% 120% at 6% -20%, rgba(255, 61, 154, 0.16), transparent 55%),
-      radial-gradient(80% 120% at 104% 8%, rgba(52, 224, 232, 0.14), transparent 52%),
-      radial-gradient(80% 100% at 60% 130%, rgba(255, 182, 72, 0.12), transparent 55%);
-  }
-  /* vignette to seat the text */
-  .vig {
-    position: absolute; inset: 0;
-    background: linear-gradient(95deg, rgba(8,7,13,0.92) 36%, rgba(8,7,13,0.32) 68%, rgba(8,7,13,0.62));
+  /* the same printed-stock texture the page carries */
+  body::after{
+    content:"";position:absolute;inset:0;pointer-events:none;opacity:.35;
+    background-image:repeating-linear-gradient(0deg,rgba(21,23,26,.035) 0 1px,transparent 1px 3px);
+    mix-blend-mode:multiply;
   }
 
-  .frame {
-    position: absolute; inset: 0;
-    z-index: 3;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 64px 72px;
+  .spine{
+    position:absolute;top:0;left:0;right:0;height:46px;
+    display:flex;align-items:stretch;
+    background:var(--ink);color:var(--panel);
+    font-family:var(--mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;
   }
+  .spine span{display:flex;align-items:center;padding:0 22px}
+  .spine__tag{background:var(--yellow);color:var(--ink);font-weight:700}
+  .spine__doc{border-right:1px solid rgba(227,228,223,.2)}
+  .spine__rev{margin-left:auto;color:#8a8e8a}
 
-  .mark { display: flex; align-items: center; gap: 14px; }
-  .mark__glyph { font-size: 26px; color: var(--cyan); line-height: 1; }
-  .mark__txt {
-    font-family: var(--mono);
-    font-size: 16px;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--ink);
-  }
+  .card{position:absolute;inset:46px 0 116px;display:grid;grid-template-columns:360px 1fr;gap:56px;padding:38px 64px 0}
 
-  .mid { margin-top: -8px; }
-  .kicker {
-    font-family: var(--mono);
-    font-size: 15px;
-    letter-spacing: 0.34em;
-    text-transform: uppercase;
-    color: var(--ink-dim);
-    margin-bottom: 22px;
+  .fig{background:var(--panel);border:1px solid var(--rule);padding:16px 16px 10px;position:relative}
+  .fig::before,.fig::after{content:"";position:absolute;width:11px;height:11px;border:1px solid var(--oxide)}
+  .fig::before{top:6px;left:6px;border-right:0;border-bottom:0}
+  .fig::after{bottom:6px;right:6px;border-left:0;border-top:0}
+  .fig svg{display:block;width:100%;height:auto}
+  .fig__cap{
+    font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-2);white-space:nowrap;
+    border-top:1px solid var(--rule-soft);margin-top:9px;padding-top:7px;display:flex;justify-content:space-between;gap:10px;
   }
-  .name {
-    font-family: var(--display);
-    font-weight: 300;
-    font-size: 150px;
-    line-height: 0.82;
-    letter-spacing: -0.02em;
-  }
-  .name .last {
-    font-style: italic;
-    background: linear-gradient(102deg, var(--magenta), var(--amber), var(--cyan));
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  .lede {
-    margin-top: 30px;
-    font-size: 25px;
-    line-height: 1.45;
-    color: var(--ink);
-    max-width: 30ch;
-    font-weight: 300;
-  }
+  .edge{fill:none;stroke:var(--ink);stroke-width:1.6;stroke-linejoin:round}
+  .thin{fill:none;stroke:var(--ink-2);stroke-width:1}
+  .axis{stroke:var(--rule);stroke-width:1;stroke-dasharray:2 5}
+  .fillP{fill:var(--panel-2)}
+  .lead{stroke:var(--oxide);stroke-width:1}
+  .badge{fill:var(--panel-2);stroke:var(--oxide);stroke-width:1}
+  .fig text{font-family:var(--mono);font-size:11px;font-weight:600;fill:var(--ink)}
 
-  .foot {
-    display: flex;
-    gap: 30px;
-    align-items: baseline;
-    font-family: var(--mono);
-    font-size: 15px;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--ink-faint);
+  .eyebrow{font-family:var(--mono);font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-2)}
+  .eyebrow s{text-decoration:none;color:var(--oxide)}
+  h1{
+    font-size:100px;line-height:.83;letter-spacing:-.03em;text-transform:uppercase;
+    font-variation-settings:"wdth" 112,"wght" 900;margin:16px 0 0;
   }
-  .foot .dot { color: var(--cyan); }
-  .foot .here { color: var(--ink-dim); }
+  h1 .yell{background:linear-gradient(var(--yellow),var(--yellow)) no-repeat left bottom/100% .13em;padding-bottom:.04em}
+  .lede{font-size:21px;line-height:1.4;max-width:30ch;margin-top:24px}
 
-  /* print-fuzz grain, same source as the site */
-  .grain {
-    position: absolute; inset: -50%;
-    z-index: 4;
-    pointer-events: none;
-    opacity: 0.055;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  .strip{
+    position:absolute;left:64px;right:64px;bottom:42px;
+    border-top:2px solid var(--ink);padding-top:14px;
+    display:flex;align-items:baseline;gap:22px;
+    font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;
   }
+  .strip>*{white-space:nowrap}
+  .strip .flag{background:var(--yellow);color:var(--ink);padding:4px 10px;font-weight:700}
+  .strip .stack{color:var(--ink-2)}
+  .strip .mail{margin-left:auto;color:var(--blue)}
 </style>
 </head>
 <body>
-  <div class="bg"></div>
-  <div class="wash"></div>
-  <div class="vig"></div>
-  <div class="grain"></div>
 
-  <div class="frame">
-    <div class="mark">
-      <span class="mark__glyph">◑</span>
-      <span class="mark__txt">robot of the future</span>
-    </div>
+<div class="spine">
+  <span class="spine__tag">ROTF-1</span>
+  <span class="spine__doc">Operator's manual</span>
+  <span class="spine__rev">Rev 2026.07</span>
+</div>
 
-    <div class="mid">
-      <p class="kicker">WordPress developer · 10+ years</p>
-      <h1 class="name"><span class="first">Mike</span> <span class="last">Joslyn</span></h1>
-      <p class="lede">Freelance WordPress &amp; WooCommerce development, support, and full rebuilds.</p>
-    </div>
+<div class="card">
+  <figure class="fig">
+    <svg viewBox="0 0 440 478" aria-hidden="true">
+      <line class="axis" x1="220" y1="14" x2="220" y2="474"/>
 
-    <div class="foot">
-      <span>robotofthefuture.com</span>
-      <span class="dot">·</span>
-      <span class="here">Cherry Creek, NY</span>
-    </div>
+      <!-- 01 sensor head -->
+      <line class="thin" x1="220" y1="32" x2="220" y2="56"/>
+      <circle cx="220" cy="24" r="7" fill="#e8b60f" stroke="#15171a" stroke-width="1.6"/>
+      <rect class="edge fillP" x="164" y="56" width="112" height="82" rx="8"/>
+      <rect class="edge fillP" x="150" y="80" width="12" height="26" rx="3"/>
+      <rect class="edge fillP" x="278" y="80" width="12" height="26" rx="3"/>
+      <circle class="edge" cx="220" cy="94" r="25"/>
+      <circle class="thin" cx="220" cy="94" r="18"/>
+      <circle cx="220" cy="94" r="10" fill="#2b4c7e"/>
+      <circle cx="215" cy="89" r="2.6" fill="#ecedea"/>
+      <path class="thin" d="M180 124h30M230 124h30"/>
+      <line class="lead" x1="276" y1="66" x2="330" y2="52"/>
+      <circle class="badge" cx="344" cy="48" r="12"/>
+      <text x="344" y="52" text-anchor="middle">01</text>
+
+      <!-- neck -->
+      <rect class="edge fillP" x="196" y="158" width="48" height="18" rx="3"/>
+
+      <!-- 02 manipulators -->
+      <rect class="edge fillP" x="76" y="206" width="34" height="66" rx="9"/>
+      <rect class="edge fillP" x="76" y="282" width="34" height="44" rx="9"/>
+      <path class="edge fillP" d="M82 332h10v16H82zM94 332h10v16H94z"/>
+      <rect class="edge fillP" x="330" y="206" width="34" height="66" rx="9"/>
+      <rect class="edge fillP" x="330" y="282" width="34" height="44" rx="9"/>
+      <path class="edge fillP" d="M336 332h10v16h-10zM348 332h10v16h-10z"/>
+      <line class="axis" x1="112" y1="222" x2="150" y2="222"/>
+      <line class="axis" x1="290" y1="222" x2="328" y2="222"/>
+      <line class="lead" x1="76" y1="196" x2="44" y2="180"/>
+      <circle class="badge" cx="30" cy="174" r="12"/>
+      <text x="30" y="178" text-anchor="middle">02</text>
+
+      <!-- 03 core -->
+      <rect class="edge fillP" x="152" y="196" width="136" height="142" rx="6"/>
+      <rect class="thin" x="164" y="206" width="60" height="20" rx="2"/>
+      <path class="thin" d="M170 213h30M170 219h44"/>
+      <rect class="edge" x="234" y="206" width="42" height="34" rx="2"/>
+      <circle cx="245" cy="216" r="3.2" fill="#e8b60f"/>
+      <circle cx="258" cy="216" r="3.2" fill="#2b4c7e"/>
+      <circle cx="271" cy="216" r="3.2" fill="#e8b60f"/>
+      <path class="thin" d="M241 230h28"/>
+      <path class="thin" d="M164 246h58M164 254h58M164 262h58M164 270h58M164 278h58"/>
+      <rect class="edge" x="164" y="292" width="112" height="34" rx="2"/>
+      <path class="thin" d="M176 309h44"/>
+      <circle class="thin" cx="262" cy="309" r="5"/>
+      <line class="lead" x1="288" y1="310" x2="336" y2="334"/>
+      <circle class="badge" cx="350" cy="340" r="12"/>
+      <text x="350" y="344" text-anchor="middle">03</text>
+
+      <!-- 04 drive -->
+      <path class="edge fillP" d="M166 378h108l24 46H142z"/>
+      <path class="thin" d="M178 392h84M170 408h100"/>
+      <rect class="edge fillP" x="136" y="440" width="168" height="26" rx="13"/>
+      <circle class="edge" cx="164" cy="453" r="7"/>
+      <circle class="edge" cx="220" cy="453" r="7"/>
+      <circle class="edge" cx="276" cy="453" r="7"/>
+      <line class="axis" x1="220" y1="342" x2="220" y2="374"/>
+      <line class="lead" x1="304" y1="453" x2="348" y2="453"/>
+      <circle class="badge" cx="362" cy="453" r="12"/>
+      <text x="362" y="457" text-anchor="middle">04</text>
+    </svg>
+    <figcaption class="fig__cap"><span>Fig. 1 — Unit ROTF-1</span><span>Not to scale</span></figcaption>
+  </figure>
+
+  <div>
+    <p class="eyebrow">Mike Joslyn <s>·</s> Cherry Creek, NY</p>
+    <h1>Robot<br />of the<br /><span class="yell">Future</span></h1>
+    <p class="lede">
+      Freelance full stack &amp; WordPress development — WooCommerce,
+      TypeScript, and React. 10+ years.
+    </p>
   </div>
+</div>
+
+<div class="strip">
+  <span class="flag">Available for work</span>
+  <span class="stack">WordPress · WooCommerce · TypeScript · React</span>
+  <span class="mail">mike@robotofthefuture.com</span>
+</div>
+
 </body>
 </html>

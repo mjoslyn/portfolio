@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Mike Joslyn — Pattern</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Space+Grotesk:wght@300;400;500&family=JetBrains+Mono:wght@300;400;700&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --chassis:#141312;
+  --panel:#201e1c;
+  --panel-2:#2a2725;
+  --edge:#3b3734;
+  --silk:#ece4d4;
+  --silk-2:#9c948a;
+  --silk-3:#6a635c;
+  --amber:#ff9e2c;
+  --red:#ff5147;
+  --cyan:#4fdbe4;
+  --green:#87dd6e;
+  --display:"Syne",system-ui,sans-serif;
+  --body:"Space Grotesk",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,monospace;
+  --maxw:1180px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--chassis);
+  color:var(--silk);
+  font-family:var(--body);
+  font-weight:300;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+/* brushed panel grain */
+body::before{
+  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5;
+  background:
+    repeating-linear-gradient(90deg,rgba(255,255,255,.012) 0 1px,transparent 1px 3px),
+    radial-gradient(80% 50% at 50% 0%,rgba(255,158,44,.07),transparent 60%);
+}
+.wrap{position:relative;z-index:1;max-width:var(--maxw);margin-inline:auto;padding-inline:clamp(1rem,4vw,2.2rem)}
+
+/* ── transport ───────────────────────────────────────── */
+.transport{
+  position:sticky;top:0;z-index:40;
+  background:linear-gradient(var(--panel-2),var(--panel));
+  border-bottom:1px solid #0b0a09;
+  box-shadow:0 1px 0 rgba(255,255,255,.05) inset,0 12px 24px -18px #000;
+}
+.transport__in{
+  max-width:var(--maxw);margin-inline:auto;
+  padding:.6rem clamp(1rem,4vw,2.2rem);
+  display:flex;align-items:center;gap:clamp(.8rem,2.5vw,1.8rem);
+}
+.plate{display:flex;align-items:center;gap:.55rem;text-decoration:none;color:var(--silk)}
+.plate__led{width:9px;height:9px;border-radius:50%;background:var(--amber);box-shadow:0 0 8px var(--amber)}
+.plate__txt{font-family:var(--display);font-weight:800;font-size:.82rem;letter-spacing:.02em;text-transform:uppercase}
+.plate__sub{font-family:var(--mono);font-size:.56rem;letter-spacing:.2em;color:var(--silk-3);text-transform:uppercase}
+
+.knob{display:flex;align-items:center;gap:.5rem;touch-action:none}
+.knob svg{width:38px;height:38px;cursor:ns-resize;display:block}
+.knob:focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:6px}
+.knob__face{fill:#171614;stroke:var(--edge)}
+.knob__ring{fill:none;stroke:#0d0c0b;stroke-width:3}
+.knob__ind{stroke:var(--amber);stroke-width:2.4;stroke-linecap:round}
+.knob__read{font-family:var(--mono);font-size:.62rem;letter-spacing:.06em;color:var(--silk-2);line-height:1.2}
+.knob__read b{display:block;color:var(--silk);font-size:.86rem;font-weight:700}
+
+.steps{display:flex;gap:3px;margin-left:auto}
+.step{
+  width:13px;height:24px;border-radius:2px;background:#171614;border:1px solid var(--edge);
+  position:relative;transition:background .08s,box-shadow .08s;
+}
+.step.beat{border-color:#514a44}
+.step.on{background:#4a3a22}
+.step.cur{background:var(--amber);box-shadow:0 0 10px rgba(255,158,44,.8)}
+.step.cur.on{background:#ffd39a;box-shadow:0 0 14px rgba(255,211,154,.9)}
+
+.run{
+  font-family:var(--mono);font-size:.6rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  background:#171614;color:var(--green);border:1px solid var(--edge);border-radius:3px;
+  padding:.45rem .7rem;cursor:pointer;
+}
+.run[aria-pressed="false"]{color:var(--silk-3)}
+.run:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+
+/* ── hero ────────────────────────────────────────────── */
+.hero{padding-block:clamp(3rem,11vh,7rem) clamp(2rem,7vh,4rem)}
+.hero__label{font-family:var(--mono);font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;color:var(--amber)}
+.hero h1{
+  font-family:var(--display);font-weight:800;
+  font-size:clamp(3.2rem,12vw,9rem);line-height:.88;letter-spacing:-.035em;
+  text-transform:uppercase;margin:.8rem 0 0;
+}
+.hero h1 span{display:block;color:transparent;-webkit-text-stroke:1.4px var(--silk-2)}
+.hero__lede{font-size:clamp(1.05rem,2vw,1.35rem);max-width:40ch;margin-top:1.8rem;color:var(--silk)}
+.hero__row{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:2rem}
+
+.jack{
+  display:inline-flex;align-items:center;gap:.42rem;
+  font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--silk-2);
+  border:1px solid var(--edge);border-radius:999px;padding:.3rem .7rem .3rem .5rem;background:#191715;
+}
+.jack::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--silk-3);box-shadow:inset 0 0 0 2px #0d0c0b}
+.jack.j1::before{background:var(--amber)}
+.jack.j2::before{background:var(--cyan)}
+.jack.j3::before{background:var(--red)}
+.jack.j4::before{background:var(--green)}
+
+/* ── track lanes ─────────────────────────────────────── */
+.track{padding-block:clamp(1.5rem,5vh,3rem)}
+.lane{
+  display:flex;align-items:center;gap:1rem;flex-wrap:wrap;
+  border-top:1px solid var(--edge);border-bottom:1px solid var(--edge);
+  background:linear-gradient(var(--panel),#1b1917);
+  padding:.6rem .9rem;margin-bottom:1.6rem;
+}
+.lane__no{font-family:var(--mono);font-size:.58rem;font-weight:700;letter-spacing:.14em;color:var(--chassis);background:var(--amber);padding:.2rem .45rem;border-radius:2px}
+.lane h2{font-family:var(--display);font-weight:700;font-size:clamp(1.05rem,2.4vw,1.5rem);text-transform:uppercase;letter-spacing:-.01em}
+.lane p{font-size:.86rem;color:var(--silk-2);margin-left:auto;max-width:44ch;text-align:right}
+
+/* ── rack modules ────────────────────────────────────── */
+.rack{display:flex;flex-direction:column;gap:1rem}
+.mod{
+  display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr) auto;gap:clamp(1rem,3vw,2rem);
+  background:linear-gradient(180deg,var(--panel-2),var(--panel));
+  border:1px solid var(--edge);border-radius:4px;
+  padding:1rem;align-items:start;
+  box-shadow:0 1px 0 rgba(255,255,255,.04) inset;
+  transition:border-color .25s,box-shadow .25s;
+}
+.mod.hit{border-color:#6d5a3c;box-shadow:0 1px 0 rgba(255,255,255,.04) inset,0 0 0 1px rgba(255,158,44,.25),0 0 26px -10px rgba(255,158,44,.7)}
+.screen{
+  display:block;position:relative;border-radius:3px;overflow:hidden;
+  border:1px solid #0c0b0a;background:#0c0b0a;
+  box-shadow:0 0 0 1px rgba(255,255,255,.05) inset;
+}
+.screen img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top center;opacity:.92;transition:opacity .3s,transform .6s cubic-bezier(.16,1,.3,1)}
+.screen::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:repeating-linear-gradient(0deg,rgba(0,0,0,.28) 0 1px,transparent 1px 3px);
+  opacity:.5;
+}
+.screen:hover img,.screen:focus-visible img{opacity:1;transform:scale(1.03)}
+.screen:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+.screen__go{
+  position:absolute;left:.5rem;bottom:.5rem;z-index:2;
+  font-family:var(--mono);font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--chassis);background:var(--cyan);padding:.24rem .5rem;border-radius:2px;
+  opacity:0;transform:translateY(4px);transition:opacity .22s,transform .22s;
+}
+.screen:hover .screen__go,.screen:focus-visible .screen__go{opacity:1;transform:none}
+
+.mod__meta{min-width:0}
+.mod__id{font-family:var(--mono);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--silk-3)}
+.mod__meta h3{font-family:var(--display);font-weight:700;font-size:clamp(1.25rem,2.6vw,1.75rem);line-height:1.05;margin:.3rem 0 .1rem;letter-spacing:-.015em}
+.mod__url{font-family:var(--mono);font-size:.66rem;color:var(--cyan);text-decoration:none;border-bottom:1px solid rgba(79,219,228,.35)}
+.mod__url:hover{border-color:var(--cyan)}
+.mod__meta p{font-size:.94rem;color:var(--silk-2);margin-top:.8rem;max-width:52ch}
+.mod__meta p b{color:var(--silk);font-weight:500}
+.mod__jacks{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem}
+
+.mod__led{display:flex;flex-direction:column;align-items:center;gap:.4rem;padding-top:.2rem}
+.led{width:10px;height:10px;border-radius:50%;background:#241f1a;box-shadow:inset 0 0 0 1px #0c0b0a;transition:background .1s,box-shadow .1s}
+.mod.hit .led{background:var(--amber);box-shadow:0 0 12px var(--amber)}
+.mod__step{font-family:var(--mono);font-size:.5rem;letter-spacing:.08em;color:var(--silk-3);writing-mode:vertical-rl}
+
+/* ── patchbay (clients) ──────────────────────────────── */
+.patchbay{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem}
+.patch{
+  background:linear-gradient(180deg,#1d1b19,#191715);border:1px solid var(--edge);border-radius:3px;
+  min-height:120px;display:flex;align-items:center;justify-content:center;padding:1.4rem 1rem;position:relative;
+}
+.patch::before{
+  content:"";position:absolute;top:.45rem;left:.45rem;width:7px;height:7px;border-radius:50%;
+  background:#0d0c0b;box-shadow:inset 0 0 0 1px #45403b;
+}
+.patch img{max-width:100%;height:30px;width:auto;object-fit:contain;filter:brightness(0) invert(1);opacity:.6;transition:opacity .3s}
+.patch img.md{height:40px}
+.patch img.tall{height:54px}
+.patch img.duo{filter:grayscale(1) invert(1) brightness(1.6)}
+.patch:hover img{opacity:.95}
+.patch__word{font-family:var(--display);font-weight:700;font-size:1rem;text-transform:uppercase;text-align:center;line-height:1.1;color:var(--silk-2)}
+.patch__word small{display:block;font-family:var(--mono);font-size:.5rem;letter-spacing:.14em;color:var(--silk-3);margin-top:.3rem;font-weight:400}
+
+/* ── channel strips (capability) ─────────────────────── */
+.strips{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:.6rem}
+.strip{background:linear-gradient(180deg,var(--panel-2),var(--panel));border:1px solid var(--edge);border-radius:3px;padding:1rem}
+.strip h3{font-family:var(--mono);font-size:.66rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);margin-bottom:.5rem;display:flex;align-items:center;gap:.45rem}
+.strip h3::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor;box-shadow:0 0 7px currentColor}
+.strip:nth-child(3n+2) h3{color:var(--cyan)}
+.strip:nth-child(3n+3) h3{color:var(--green)}
+.strip p{font-size:.88rem;color:var(--silk-2)}
+
+/* ── out ─────────────────────────────────────────────── */
+.out{
+  margin-block:clamp(2.5rem,8vh,5rem);
+  border:1px solid var(--edge);border-radius:4px;
+  background:linear-gradient(180deg,var(--panel-2),#191715);
+  padding:clamp(1.5rem,5vw,2.8rem);
+  display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:center;
+}
+.out h2{font-family:var(--display);font-weight:800;font-size:clamp(1.8rem,5.5vw,3.6rem);line-height:.95;text-transform:uppercase;letter-spacing:-.03em}
+.out p{color:var(--silk-2);max-width:34ch;margin-top:.8rem}
+.out__links{display:flex;flex-direction:column;gap:.6rem;font-family:var(--mono);font-size:.82rem;text-align:right}
+.out__links a{color:var(--amber);text-decoration:none;border-bottom:1px solid transparent;transition:border-color .2s}
+.out__links a:hover,.out__links a:focus-visible{border-color:var(--amber);outline:none}
+.out__links span{color:var(--silk-3);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase}
+
+.foot{border-top:1px solid var(--edge);padding-block:1.4rem 2.5rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:.6rem;font-family:var(--mono);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--silk-3)}
+
+@media(max-width:900px){
+  .mod{grid-template-columns:1fr;gap:.9rem}
+  .mod__led{flex-direction:row;align-items:center}
+  .mod__step{writing-mode:horizontal-tb}
+  .patchbay{grid-template-columns:repeat(2,1fr)}
+  .lane p{margin-left:0;text-align:left;flex-basis:100%}
+  .steps{display:none}
+  .out{grid-template-columns:1fr}
+  .out__links{text-align:left}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<div class="transport">
+  <div class="transport__in">
+    <a class="plate" href="#top">
+      <span class="plate__led" aria-hidden="true"></span>
+      <span>
+        <span class="plate__txt">Mike Joslyn</span><br />
+        <span class="plate__sub">Robot of the Future</span>
+      </span>
+    </a>
+
+    <div class="knob" id="tempo" role="slider" tabindex="0"
+         aria-label="Tempo" aria-valuemin="60" aria-valuemax="180" aria-valuenow="96" aria-valuetext="96 BPM">
+      <svg viewBox="0 0 40 40" aria-hidden="true">
+        <circle class="knob__ring" cx="20" cy="20" r="16" />
+        <circle class="knob__face" cx="20" cy="20" r="13" />
+        <line class="knob__ind" id="ind" x1="20" y1="20" x2="20" y2="9" />
+      </svg>
+      <span class="knob__read">Tempo<b id="bpmOut">96</b></span>
+    </div>
+
+    <div class="steps" id="steps" aria-hidden="true"></div>
+    <button class="run" id="run" aria-pressed="true">Running</button>
+  </div>
+</div>
+
+<main class="wrap" id="top">
+
+  <!-- ── hero ── -->
+  <section class="hero">
+    <p class="hero__label">Cherry Creek, NY — freelance, 10+ years</p>
+    <h1>Builds<br /><span>the whole</span>thing</h1>
+    <p class="hero__lede">
+      I'm Mike. I make WordPress and WooCommerce sites for clients, and TypeScript
+      and React applications when a site needs to behave like an app.
+    </p>
+    <div class="hero__row">
+      <span class="jack j1">WordPress · WooCommerce</span>
+      <span class="jack j2">TypeScript · React · Next.js · Astro</span>
+      <span class="jack j3">PHP · REST</span>
+      <span class="jack j4">Cloudflare · Netlify · WP Engine</span>
+    </div>
+  </section>
+
+  <!-- ── track 1: client work ── -->
+  <section class="track" id="work">
+    <div class="lane">
+      <span class="lane__no">TRK 1</span>
+      <h2>Client work</h2>
+      <p>Sites in production. Full rebuilds unless noted.</p>
+    </div>
+
+    <div class="rack">
+      <article class="mod" data-step="0">
+        <a class="screen" href="https://fentonmobility.com" target="_blank" rel="noopener">
+          <img src="../assets/img/shots/fenton.png" alt="Screenshot of the fentonmobility.com homepage" loading="lazy" />
+          <span class="screen__go">Open ↗</span>
+        </a>
+        <div class="mod__meta">
+          <span class="mod__id">M-01 · Full rebuild</span>
+          <h3>Fenton Mobility</h3>
+          <a class="mod__url" href="https://fentonmobility.com" target="_blank" rel="noopener">fentonmobility.com</a>
+          <p>
+            A dealer of wheelchair-accessible vans. I rebuilt the site, then built
+            <b>Plan a Van</b> — a React layout builder for configuring an interior — and a
+            custom inventory app that syncs from the dealership's Google Apps Script backend.
+          </p>
+          <div class="mod__jacks">
+            <span class="jack j1">WordPress</span><span class="jack j3">WooCommerce</span>
+            <span class="jack j2">React</span><span class="jack j4">Apps Script</span>
+          </div>
+        </div>
+        <span class="mod__led"><span class="led"></span><span class="mod__step">STEP 01</span></span>
+      </article>
+
+      <article class="mod" data-step="4">
+        <a class="screen" href="https://www.affinityonefcu.org" target="_blank" rel="noopener">
+          <img src="../assets/img/shots/affinityone.png" alt="Screenshot of the affinityonefcu.org homepage" loading="lazy" />
+          <span class="screen__go">Open ↗</span>
+        </a>
+        <div class="mod__meta">
+          <span class="mod__id">M-02 · Full build</span>
+          <h3>Affinity One FCU</h3>
+          <a class="mod__url" href="https://www.affinityonefcu.org" target="_blank" rel="noopener">affinityonefcu.org</a>
+          <p>
+            A federal credit union's public site — rates, loan products, membership, and
+            the handoff to online banking. Built block by block in Gutenberg with Advanced
+            Custom Fields, so staff can change a rate without calling me.
+          </p>
+          <div class="mod__jacks">
+            <span class="jack j1">WordPress</span><span class="jack j2">Gutenberg</span>
+            <span class="jack j3">ACF</span><span class="jack j4">Finance</span>
+          </div>
+        </div>
+        <span class="mod__led"><span class="led"></span><span class="mod__step">STEP 05</span></span>
+      </article>
+
+      <article class="mod" data-step="8">
+        <a class="screen" href="https://ellicottvilleny.com" target="_blank" rel="noopener">
+          <img src="../assets/img/shots/ellicottville.png" alt="Screenshot of the ellicottvilleny.com homepage" loading="lazy" />
+          <span class="screen__go">Open ↗</span>
+        </a>
+        <div class="mod__meta">
+          <span class="mod__id">M-03 · Full rebuild · redesign in progress</span>
+          <h3>Ellicottville Chamber</h3>
+          <a class="mod__url" href="https://ellicottvilleny.com" target="_blank" rel="noopener">ellicottvilleny.com</a>
+          <p>
+            Events, a member directory, and seasonal tourism content for a ski-town chamber
+            of commerce. Headless — Astro on top of DatoCMS, with edge functions handling
+            the parts that have to stay dynamic.
+          </p>
+          <div class="mod__jacks">
+            <span class="jack j2">Astro</span><span class="jack j1">DatoCMS</span>
+            <span class="jack j3">GraphQL</span><span class="jack j4">Netlify Edge</span>
+          </div>
+        </div>
+        <span class="mod__led"><span class="led"></span><span class="mod__step">STEP 09</span></span>
+      </article>
+
+      <article class="mod" data-step="12">
+        <a class="screen" href="https://www.ellicottvillenow.com/" target="_blank" rel="noopener">
+          <img src="../assets/img/shots/ellicottvillenow.png" alt="Screenshot of the ellicottvillenow.com homepage" loading="lazy" />
+          <span class="screen__go">Open ↗</span>
+        </a>
+        <div class="mod__meta">
+          <span class="mod__id">M-04 · Build and support</span>
+          <h3>Ellicottville Now</h3>
+          <a class="mod__url" href="https://www.ellicottvillenow.com/" target="_blank" rel="noopener">ellicottvillenow.com</a>
+          <p>
+            A hyperlocal news and events publication — community journalism alongside an
+            events calendar, classifieds, and print archives.
+          </p>
+          <div class="mod__jacks">
+            <span class="jack j1">Squarespace</span><span class="jack j2">News</span><span class="jack j4">Events</span>
+          </div>
+        </div>
+        <span class="mod__led"><span class="led"></span><span class="mod__step">STEP 13</span></span>
+      </article>
+    </div>
+  </section>
+
+  <!-- ── track 2: own work ── -->
+  <section class="track" id="projects">
+    <div class="lane">
+      <span class="lane__no">TRK 2</span>
+      <h2>Own work</h2>
+      <p>Open source plugins, a browser instrument, and a game. Some filled a gap in a client build; the rest just had to exist.</p>
+    </div>
+
+    <div class="rack">
+      <article class="mod" data-step="2">
+        <a class="screen" href="https://seqbaby.netlify.app/" target="_blank" rel="noopener">
+          <img src="../assets/img/shots/seqbaby.png" alt="Screenshot of the seqbaby step sequencer" loading="lazy" />
+          <span class="screen__go">Play ↗</span>
+        </a>
+        <div class="mod__meta">
+          <span class="mod__id">M-05 · Instrument</span>
+          <h3>seqbaby</h3>
+          <a class="mod__url" href="https://seqbaby.netlify.app/" target="_blank" rel="noopener">seqbaby.netlify.app</a>
+          <p>
+            A step sequencer and drum machine in the browser — per-track synthesis, filters,
+            envelopes, pattern chaining, song and patch sharing, and collaborative editing.
+            The reason this page has a transport bar.
+          </p>
+          <div class="mod__jacks">
+            <span class="jack j2">Next.js</span><span class="jack j1">Web Audio</span>
+            <span class="jack j4">Collaborative editing</span>
+            <span class="jack j3"><a href="https://github.com/mjoslyn/seqbaby" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">Source ↗</a></span>
+          </div>
+        </div>
+        <span class="mod__led"><span class="led"></span><span class="mod__step">STEP 03</span></span>
+      </article>
+
+      <article class="mod" data-step="5">
+        <a class="screen" href="https://github.com/mjoslyn/loop-builder" target="_blank" rel="noopener">
+          <img src="../assets/img/shots/loop-builder.png" alt="Screenshot of the Loop Builder repository" loading="lazy" />
+          <span class="screen__go">Source ↗</span>
+        </a>
+        <div class="mod__meta">
+          <span class="mod__id">M-06 · WordPress plugin</span>
+          <h3>Loop Builder</h3>
+          <a class="mod__url" href="https://github.com/mjoslyn/loop-builder" target="_blank" rel="noopener">github.com/mjoslyn/loop-builder</a>
+          <p>
+            A visual query loop for the block editor. Build a post query by taxonomy, meta,
+            date, or author, then design the item card with native blocks. Server-rendered,
+            with a live preview while you edit.
+          </p>
+          <div class="mod__jacks">
+            <span class="jack j1">PHP</span><span class="jack j2">Block editor</span><span class="jack j4">Open source</span>
+          </div>
+        </div>
+        <span class="mod__led"><span class="led"></span><span class="mod__step">STEP 06</span></span>
+      </article>
+
+      <article class="mod" data-step="7">
+        <a class="screen" href="https://github.com/mjoslyn/email-interceptor-router" target="_blank" rel="noopener">
+          <img src="../assets/img/shots/email-interceptor-router.png" alt="Screenshot of the Email Interceptor Router repository" loading="lazy" />
+          <span class="screen__go">Source ↗</span>
+        </a>
+        <div class="mod__meta">
+          <span class="mod__id">M-07 · WordPress plugin</span>
+          <h3>Email Interceptor Router</h3>
+          <a class="mod__url" href="https://github.com/mjoslyn/email-interceptor-router" target="_blank" rel="noopener">github.com/mjoslyn/email-interceptor-router</a>
+          <p>
+            Hooks wp_mail and rewrites the recipient list before mail leaves the site —
+            replace addresses, route by subject pattern, or block recipients. Keeps staging
+            mail out of real inboxes and points notifications at the right team.
+          </p>
+          <div class="mod__jacks">
+            <span class="jack j1">PHP</span><span class="jack j3">wp_mail</span><span class="jack j4">Open source</span>
+          </div>
+        </div>
+        <span class="mod__led"><span class="led"></span><span class="mod__step">STEP 08</span></span>
+      </article>
+
+      <article class="mod" data-step="10">
+        <a class="screen" href="https://mjoslyn.github.io/wc-pricebook/" target="_blank" rel="noopener">
+          <img src="../assets/img/shots/wc-pricebook.png" alt="Screenshot of the WC Pricebook documentation site" loading="lazy" />
+          <span class="screen__go">Docs ↗</span>
+        </a>
+        <div class="mod__meta">
+          <span class="mod__id">M-08 · WooCommerce plugin</span>
+          <h3>WC Pricebook</h3>
+          <a class="mod__url" href="https://mjoslyn.github.io/wc-pricebook/" target="_blank" rel="noopener">mjoslyn.github.io/wc-pricebook</a>
+          <p>
+            Role-based pricing and catalog visibility for WooCommerce — tiers mapped to
+            WordPress roles, per-product overrides, quantity breaks, and negotiated
+            per-customer prices. Configuration, not code.
+          </p>
+          <div class="mod__jacks">
+            <span class="jack j1">PHP</span><span class="jack j3">WooCommerce</span><span class="jack j4">Open source</span>
+          </div>
+        </div>
+        <span class="mod__led"><span class="led"></span><span class="mod__step">STEP 11</span></span>
+      </article>
+
+      <article class="mod" data-step="11">
+        <a class="screen" href="https://mjoslyn.github.io/order-audit-log-for-woocommerce/" target="_blank" rel="noopener">
+          <img src="../assets/img/shots/order-audit-log.png" alt="Screenshot of the Order Audit Log for WooCommerce documentation site" loading="lazy" />
+          <span class="screen__go">Docs ↗</span>
+        </a>
+        <div class="mod__meta">
+          <span class="mod__id">M-09 · WooCommerce plugin</span>
+          <h3>Order Audit Log</h3>
+          <a class="mod__url" href="https://mjoslyn.github.io/order-audit-log-for-woocommerce/" target="_blank" rel="noopener">mjoslyn.github.io/order-audit-log-for-woocommerce</a>
+          <p>
+            Writes an attributed order note for every change — items, prices, coupons, refunds,
+            status, emails — and records who made it: an admin, WP-CLI, WP-Cron, or the system.
+            Totals and addresses are diffed, so an edit reads <b>total $200.00 → $150.00</b>
+            rather than "order updated".
+          </p>
+          <div class="mod__jacks">
+            <span class="jack j1">PHP</span><span class="jack j3">WooCommerce</span>
+            <span class="jack j2">HPOS</span><span class="jack j4">Open source</span>
+          </div>
+        </div>
+        <span class="mod__led"><span class="led"></span><span class="mod__step">STEP 12</span></span>
+      </article>
+
+      <article class="mod" data-step="14">
+        <a class="screen" href="https://dinnerquest.robotofthefuture.com/" target="_blank" rel="noopener">
+          <img src="../assets/img/shots/dinnerquest.png" alt="Screenshot of the Dinner Quest game" loading="lazy" />
+          <span class="screen__go">Play ↗</span>
+        </a>
+        <div class="mod__meta">
+          <span class="mod__id">M-10 · Game</span>
+          <h3>Dinner Quest</h3>
+          <a class="mod__url" href="https://dinnerquest.robotofthefuture.com/" target="_blank" rel="noopener">dinnerquest.robotofthefuture.com</a>
+          <p>
+            A text RPG for couples deciding the week's dinners. Secret picks, enthusiasm
+            bids, and a weighted coin flip settle each night. It resolves an argument my
+            household was having anyway.
+          </p>
+          <div class="mod__jacks">
+            <span class="jack j2">HonoX</span><span class="jack j1">TypeScript · React</span>
+            <span class="jack j4">Cloudflare Workers</span>
+          </div>
+        </div>
+        <span class="mod__led"><span class="led"></span><span class="mod__step">STEP 15</span></span>
+      </article>
+    </div>
+  </section>
+
+  <!-- ── track 3: clients ── -->
+  <section class="track" id="clients">
+    <div class="lane">
+      <span class="lane__no">TRK 3</span>
+      <h2>Clients</h2>
+      <p>Organizations I've built or maintained sites for.</p>
+    </div>
+    <div class="patchbay">
+      <div class="patch"><img class="duo" src="../assets/img/logos/affinityone.png" alt="Affinity One Federal Credit Union" /></div>
+      <div class="patch"><img class="tall duo" src="../assets/img/logos/amr.png" alt="Allegany Mountain Resort at Rainbow Lake" /></div>
+      <div class="patch"><span class="patch__word">Ellicottville<small>Chamber of Commerce</small></span></div>
+      <div class="patch"><img src="../assets/img/logos/ellicottvillenow.png" alt="Ellicottville Now" /></div>
+      <div class="patch"><img src="../assets/img/logos/fenton.svg" alt="Fenton Mobility" /></div>
+      <div class="patch"><img class="tall" src="../assets/img/logos/greater-good.png" alt="Greater Good Strategy" /></div>
+      <div class="patch"><img class="md" src="../assets/img/logos/identity-youth.png" alt="Identity Youth" /></div>
+      <div class="patch"><img src="../assets/img/logos/jfna.svg" alt="Jewish Federations of North America" /></div>
+      <div class="patch"><img class="tall" src="../assets/img/logos/levine-music.png" alt="Levine Music" /></div>
+      <div class="patch"><img class="md" src="../assets/img/logos/nspe-ny.png" alt="NSPE-NY Erie Niagara Chapter" /></div>
+      <div class="patch"><img class="md" src="../assets/img/logos/raise-heck.png" alt="Raise Heck" /></div>
+      <div class="patch"><img src="../assets/img/logos/reconstructing-judaism.png" alt="Reconstructing Judaism" /></div>
+      <div class="patch"><img class="md" src="../assets/img/logos/ritualwell.png" alt="Ritualwell" /></div>
+      <div class="patch"><img class="md duo" src="../assets/img/logos/rhj.png" alt="Robert H. Jackson Center" /></div>
+      <div class="patch"><img class="tall" src="../assets/img/logos/slone-melhuish.png" alt="Slone Melhuish Insurance" /></div>
+      <div class="patch"><img class="md" src="../assets/img/logos/wny-whole-body.png" alt="WNY Whole Body Health" /></div>
+    </div>
+  </section>
+
+  <!-- ── track 4: capability ── -->
+  <section class="track" id="skills">
+    <div class="lane">
+      <span class="lane__no">TRK 4</span>
+      <h2>What you can hand me</h2>
+      <p>Ten-plus years of it, freelance and in-house.</p>
+    </div>
+    <div class="strips">
+      <div class="strip"><h3>WordPress</h3><p>Custom plugins, themes, and Gutenberg blocks in PHP and React — including multisite at scale.</p></div>
+      <div class="strip"><h3>WooCommerce</h3><p>Extended into custom ERP and inventory systems for B2B clients, including role-based and negotiated pricing.</p></div>
+      <div class="strip"><h3>TypeScript &amp; React</h3><p>Full stack apps — React front ends with HonoX, Astro, and Next.js on Cloudflare Workers and Netlify.</p></div>
+      <div class="strip"><h3>Gutenberg blocks</h3><p>Built with React and the @wordpress/* packages, including an editor-driven query loop block.</p></div>
+      <div class="strip"><h3>Integrations</h3><p>Custom REST endpoints and syncs — Google Sheets, Salesforce, Campaign Monitor, third-party feeds.</p></div>
+      <div class="strip"><h3>CI/CD &amp; testing</h3><p>GitHub Actions, Docker local environments, PHPUnit and Vitest, WordPress Coding Standards.</p></div>
+      <div class="strip"><h3>Hosting</h3><p>My own managed platform on RunCloud, plus WP Engine and Pantheon.</p></div>
+      <div class="strip"><h3>AI-assisted work</h3><p>Plan-mode workflows with Claude CLI for scaffolding, test drafting, and architecture review.</p></div>
+    </div>
+  </section>
+
+  <!-- ── out ── -->
+  <section class="out" id="contact">
+    <div>
+      <h2>Send it<br />to output</h2>
+      <p>Available for full stack and WordPress development, support, and maintenance work.</p>
+    </div>
+    <div class="out__links">
+      <a href="mailto:mike@robotofthefuture.com">mike@robotofthefuture.com</a>
+      <span>Cherry Creek, NY — Eastern time</span>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <span>Mike Joslyn — Robot of the Future</span>
+    <span>16 steps · 96 BPM</span>
+  </footer>
+</main>
+
+<script>
+(() => {
+  const STEPS = 16;
+  const stepsEl = document.getElementById("steps");
+  const mods = [...document.querySelectorAll(".mod[data-step]")];
+  const filled = new Set(mods.map((m) => Number(m.dataset.step)));
+
+  // build the step strip — lit steps are the ones that hold a project
+  const cells = [];
+  for (let i = 0; i < STEPS; i++) {
+    const s = document.createElement("span");
+    s.className = "step" + (i % 4 === 0 ? " beat" : "") + (filled.has(i) ? " on" : "");
+    stepsEl.appendChild(s);
+    cells.push(s);
+  }
+
+  let bpm = 96, pos = -1, timer = null;
+  const runBtn = document.getElementById("run");
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function tick() {
+    if (pos >= 0) {
+      cells[pos].classList.remove("cur");
+      mods.forEach((m) => m.classList.remove("hit"));
+    }
+    pos = (pos + 1) % STEPS;
+    cells[pos].classList.add("cur");
+    mods.forEach((m) => { if (Number(m.dataset.step) === pos) m.classList.add("hit"); });
+  }
+
+  function schedule() {
+    clearInterval(timer);
+    timer = setInterval(tick, 60000 / bpm / 4); // 16th notes
+  }
+  function start() { runBtn.setAttribute("aria-pressed", "true"); runBtn.textContent = "Running"; schedule(); }
+  function stop() {
+    runBtn.setAttribute("aria-pressed", "false"); runBtn.textContent = "Stopped";
+    clearInterval(timer); timer = null;
+    cells.forEach((c) => c.classList.remove("cur"));
+    mods.forEach((m) => m.classList.remove("hit"));
+    pos = -1;
+  }
+  runBtn.addEventListener("click", () => (timer ? stop() : start()));
+
+  // tempo knob — drag vertically or use arrow keys
+  const knob = document.getElementById("tempo");
+  const ind = document.getElementById("ind");
+  const out = document.getElementById("bpmOut");
+  function setBpm(v) {
+    bpm = Math.max(60, Math.min(180, Math.round(v)));
+    out.textContent = bpm;
+    knob.setAttribute("aria-valuenow", bpm);
+    knob.setAttribute("aria-valuetext", bpm + " BPM");
+    const deg = -140 + ((bpm - 60) / 120) * 280;
+    ind.setAttribute("transform", `rotate(${deg} 20 20)`);
+    if (timer) schedule();
+  }
+  let dragging = false, lastY = 0;
+  knob.addEventListener("pointerdown", (e) => { dragging = true; lastY = e.clientY; knob.setPointerCapture(e.pointerId); });
+  knob.addEventListener("pointermove", (e) => { if (!dragging) return; setBpm(bpm + (lastY - e.clientY) * 0.7); lastY = e.clientY; });
+  knob.addEventListener("pointerup", () => (dragging = false));
+  knob.addEventListener("keydown", (e) => {
+    const d = { ArrowUp: 1, ArrowRight: 1, ArrowDown: -1, ArrowLeft: -1 }[e.key];
+    if (!d) return;
+    e.preventDefault();
+    setBpm(bpm + d * (e.shiftKey ? 10 : 1));
+  });
+
+  setBpm(96);
+  if (reduce) stop(); else start();
+  document.addEventListener("visibilitychange", () => { if (document.hidden) clearInterval(timer); else if (runBtn.getAttribute("aria-pressed") === "true") schedule(); });
+})();
+</script>
+</body>
+</html>

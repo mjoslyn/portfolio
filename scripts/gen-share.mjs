@@ -1,6 +1,6 @@
 // Render the social share card (assets/share-card.html) to a 1200x630 PNG
-// via the Chrome DevTools Protocol. Run gen-share-bg.mjs first for the
-// psychedelic backdrop. Usage: node scripts/gen-share.mjs
+// via the Chrome DevTools Protocol. Self-contained — the card draws its own
+// figure, no backdrop to generate first. Usage: node scripts/gen-share.mjs
 
 import { spawn } from "node:child_process";
 import { writeFileSync } from "node:fs";

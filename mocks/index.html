@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Portfolio mocks</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Martian+Mono:wght@300..700&display=swap" rel="stylesheet" />
+<style>
+:root{--zinc:#d1d3cc;--panel:#e3e4df;--ink:#15171a;--ink-2:#53575b;--rule:#a8aca3;--yellow:#e8b60f;--oxide:#b13617}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--zinc);color:var(--ink);font-family:"Archivo",system-ui,sans-serif;line-height:1.6;padding:clamp(1.5rem,6vw,4rem)}
+.head{max-width:900px;margin-bottom:2.5rem}
+.kick{font-family:"Martian Mono",monospace;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--oxide)}
+h1{font-size:clamp(2rem,6vw,3.4rem);font-variation-settings:"wdth" 110,"wght" 900;text-transform:uppercase;line-height:.95;margin:.5rem 0 .7rem}
+.head p{color:var(--ink-2);max-width:56ch}
+.list{max-width:900px;border-top:2px solid var(--ink)}
+.item{display:grid;grid-template-columns:3.2rem 1fr auto;gap:1.2rem;align-items:baseline;padding:1.3rem 0;border-bottom:1px solid var(--rule);text-decoration:none;color:inherit;transition:background .2s}
+.item:hover,.item:focus-visible{background:var(--panel);outline:none}
+.item__no{font-family:"Martian Mono",monospace;font-size:.6rem;font-weight:700;color:var(--oxide);letter-spacing:.08em}
+.item h2{font-size:1.35rem;font-variation-settings:"wdth" 104,"wght" 800;text-transform:uppercase;line-height:1.1}
+.item p{color:var(--ink-2);font-size:.94rem;margin-top:.25rem;max-width:56ch}
+.item__go{font-family:"Martian Mono",monospace;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2)}
+.item.pick h2::after{content:"Picked";font-family:"Martian Mono",monospace;font-size:.5rem;letter-spacing:.14em;background:var(--yellow);color:var(--ink);padding:.2rem .4rem;margin-left:.6rem;vertical-align:.25em}
+.foot{max-width:900px;margin-top:2rem;font-family:"Martian Mono",monospace;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2)}
+@media(max-width:640px){.item{grid-template-columns:1fr}.item__no,.item__go{grid-column:1}}
+</style>
+</head>
+<body>
+  <div class="head">
+    <p class="kick">robotofthefuture.com — replacement directions</p>
+    <h1>Three ways to rebuild the page</h1>
+    <p>Same content in all three: four client sites, five own projects, sixteen client logos, capabilities, contact. Only the design direction changes.</p>
+  </div>
+
+  <div class="list">
+    <a class="item pick" href="../index.html">
+      <span class="item__no">01</span>
+      <span>
+        <h2>Field manual</h2>
+        <p>The site as service documentation for "Unit ROTF-1" — an exploded diagram of the stack, numbered chapters, spec tables instead of tag pills, and a drawing title block. Industrial livery on machine grey. Prints like a real manual.</p>
+      </span>
+      <span class="item__go">Live ↗</span>
+    </a>
+
+    <a class="item" href="02-pattern.html">
+      <span class="item__no">02</span>
+      <span>
+        <h2>Pattern</h2>
+        <p>The site as a hardware step sequencer, taken from seqbaby. A running 16-step transport lights each project as the playhead reaches it; the tempo knob works. Projects are rack modules, clients are a patchbay.</p>
+      </span>
+      <span class="item__go">Open ↗</span>
+    </a>
+
+    <a class="item" href="03-sign-shop.html">
+      <span class="item__no">03</span>
+      <span>
+        <h2>Sign shop</h2>
+        <p>The web shop as a small-town sign painter's shop — gold-leaf lettering on bottle green, each client site a painted trade sign hanging from a bracket that sways when you touch it. Warm, local, built for the chamber-of-commerce clientele.</p>
+      </span>
+      <span class="item__go">Open ↗</span>
+    </a>
+  </div>
+
+  <p class="foot">Direction 01 shipped — it is the live homepage. 02 and 03 are standalone mocks that reuse ../assets</p>
+</body>
+</html>
