@@ -181,7 +181,7 @@
           <li><b>01</b><span>Front end <em>— React, TypeScript, Tailwind, Next.js, Astro, Gutenberg blocks, Web Audio API</em></span></li>
           <li><b>02</b><span>Integrations <em>— REST and GraphQL APIs, Claude API and MCP, Salesforce, Google Apps Script</em></span></li>
           <li><b>03</b><span>Back end <em>— Node, HonoX, Supabase and Postgres, headless CMS, WordPress, WooCommerce, Shopify, PHP</em></span></li>
-          <li><b>04</b><span>Infrastructure <em>— Cloudflare Workers, Netlify, edge functions, WP Engine, RunCloud</em></span></li>
+          <li><b>04</b><span>Infrastructure <em>— Cloudflare Workers, Durable Objects, D1, R2, Queues, Images; Netlify, edge functions, WP Engine, RunCloud</em></span></li>
         </ol>
       </div>
     </div>
@@ -348,7 +348,7 @@
       <caption>Table 3.1 — Working specification</caption>
       <thead><tr><th scope="col">Area</th><th scope="col">Detail</th></tr></thead>
       <tbody>
-        <tr><td>Full stack</td><td>Database to interface — Postgres and Supabase, Node and HonoX back ends, React front ends, and the APIs between them.</td></tr>
+        <tr><td>Full stack</td><td>Database to interface — Postgres, Supabase, and Cloudflare D1, Node and HonoX back ends, React front ends, and the APIs between them.</td></tr>
         <tr><td>WordPress engineering</td><td>Custom plugins, themes, and Gutenberg blocks in PHP and React. Ten-plus years, including multisite at scale.</td></tr>
         <tr><td>WooCommerce</td><td>Extended into custom ERP and inventory systems for B2B clients, including role-based pricing and negotiated per-customer rates.</td></tr>
         <tr><td>Shopify</td><td>Custom themes in Liquid and third-party app integrations.</td></tr>
@@ -356,6 +356,7 @@
         <tr><td>Gutenberg blocks</td><td>Built with React and the @wordpress/* packages, including an editor-driven query loop block.</td></tr>
         <tr><td>Integrations</td><td>Custom REST endpoints and syncs — Google Sheets, Salesforce, Campaign Monitor, third-party feeds.</td></tr>
         <tr><td>CI/CD &amp; testing</td><td>GitHub Actions, Docker local environments, PHPUnit and Vitest, WordPress Coding Standards.</td></tr>
+        <tr><td>Cloudflare</td><td>Full apps on the developer platform — Workers, Durable Objects, D1, R2, Queues, Images, and Cron Triggers, configured and deployed with Wrangler.</td></tr>
         <tr><td>Hosting</td><td>My own managed platform on RunCloud, plus WP Engine and Pantheon.</td></tr>
         <tr><td>AI in products</td><td>Claude API features and MCP servers built into shipped apps, like the compose panel and agent-facing MCP server in seqbaby.</td></tr>
         <tr><td>AI-native workflow</td><td>Claude Code as the daily driver — planning, parallel subagents, and review passes, with custom skills and MCP servers wired to the tools a project uses.</td></tr>
@@ -417,14 +418,26 @@
       </article>
 
       <article class="mod">
-        <span class="mod__top"><b>MOD-05</b><span>Game</span></span>
-        <img src="assets/img/shots/dinnerquest.png" alt="Screenshot of the Dinner Quest meal-planning game" loading="lazy" />
-        <h3>Dinner Quest</h3>
-        <p>A text RPG for couples deciding the week's dinners. Secret picks, enthusiasm bids, and a weighted coin flip settle each night. Solves an argument my household was having anyway.</p>
-        <span class="mod__stack">HonoX · TypeScript · React · Cloudflare Workers</span>
+        <span class="mod__top"><b>MOD-05</b><span>CMS</span></span>
+        <img src="assets/img/shots/cfpuck-cms.png" alt="Screenshot of the cfpuck-cms repository" loading="lazy" />
+        <h3>cfpuck-cms</h3>
+        <p>A CMS for small business and organization sites, running on one Cloudflare Worker. Puck visual editor, forms with payments, event tickets, members, and mailing. Compose writes pages with Claude from the documents, images, and links an editor adds.</p>
+        <span class="mod__stack">Astro · Cloudflare Workers · D1 · R2 · Queues · Claude API · Open source</span>
         <span class="mod__links">
-          <a href="https://dinnerquest.robotofthefuture.com/" target="_blank" rel="noopener">Play ↗</a>
-          <a href="https://github.com/mjoslyn/dinnerquest" target="_blank" rel="noopener">Source ↗</a>
+          <a href="https://mjoslyn.github.io/cfpuck-cms/" target="_blank" rel="noopener">Docs ↗</a>
+          <a href="https://github.com/mjoslyn/cfpuck-cms" target="_blank" rel="noopener">Source ↗</a>
+        </span>
+      </article>
+
+      <article class="mod">
+        <span class="mod__top"><b>MOD-06</b><span>Game</span></span>
+        <img src="assets/img/shots/gizzracer.png" alt="Screenshot of the GizzRacer cup picker" loading="lazy" />
+        <h3>GizzRacer</h3>
+        <p>A browser kart racer themed on King Gizzard &amp; the Lizard Wizard. 36 tracks in 9 cups, a track generator, a roguelike story mode, leaderboards, and live online rooms. Runs on desktop and phones.</p>
+        <span class="mod__stack">Three.js · TypeScript · Cloudflare Workers · Durable Objects · Open source</span>
+        <span class="mod__links">
+          <a href="https://www.gizzracer.com" target="_blank" rel="noopener">Play ↗</a>
+          <a href="https://github.com/mjoslyn/GizzRacer" target="_blank" rel="noopener">Source ↗</a>
         </span>
       </article>
     </div>
